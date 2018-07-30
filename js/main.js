@@ -166,7 +166,7 @@ $( document ).ready( () => {
             // Create a variable to track the highest possible move.
             let max = -Infinity;
             // Declare the index variable.
-            let index = 0;
+            let index;
             // Iterate through the board.
             for(let i = 0; i < 9; i++) {
                 // Make sure the move is a legal move.
@@ -242,34 +242,39 @@ $( document ).ready( () => {
                             // Check if the human player has won.
                             if (isWinner(boardState, HUMAN)) {
                                 // Bring up the winner screen for the human player.
-                                winner(HUMAN);
+                                // Wait .2 seconds to allow the user to see the final move.
+                                setTimeout( () => winner(HUMAN), 200);
                                 // Break out of the function.
                                 return;
                             }
                             // Check if the game is a draw.
                             if (isDraw(boardState)) {
                                 // Bring up the draw screen.
-                                draw();
+                                setTimeout( () => draw(), 200);
                                 // Break out of the function.
                                 return;
                             }
                             // Make the ai take its turn.
-                            computerMove(boardState, 0, COMPUTER);
-                            // Check if the ai player has won.
-                            if (isWinner(boardState, COMPUTER)) {
-                                // Bring up the winner screen for the computer player.
-                                winner(COMPUTER);
-                                // Break out of the function.
-                                return;
-                            }
-                            // Check if the game is a draw.
-                            if (isDraw(boardState)) {
-                                // Bring up the draw screen.
-                                draw();
-                                // Break out of the function.
-                                return;
-                            }
-                            // If no one has won or the game is not a draw, return.
+                            // Wait a second before executing to make it look like compute is thinking.
+                            setTimeout( () => {
+                                computerMove(boardState, 0, !COMPUTER);
+                                // Check if the ai player has won.
+                                if (isWinner(boardState, COMPUTER)) {
+                                    // Bring up the winner screen for the computer player.
+                                    // Wait .2 seconds to allow the user to see the final move.
+                                    setTimeout( () => winner(COMPUTER), 200);
+                                    // Break out of the function.
+                                    return;
+                                }
+                                // Check if the game is a draw.
+                                if (isDraw(boardState)) {
+                                    // Bring up the draw screen.
+                                    setTimeout( () => draw(), 200);
+                                    // Break out of the function.
+                                    return;
+                                }
+                            }, 1000);
+                            // If no one has won the game, return.
                             return;
                         }
                     }
