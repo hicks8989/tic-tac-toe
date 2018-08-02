@@ -113,22 +113,9 @@ $( document ).ready( () => {
             ];
             // Iterate through the matrix.
             for (let i = 0; i < winMatrix.length; i++) {
-                // Create a boolean to determine if the player has won.
-                let win = true;
-                // Iterate though each matrix.
-                for (let j = 0; j < winMatrix[i].length; j++) {
-                    // Check if the player does not own that spot in the board.
-                    if (board[winMatrix[i][j]] != value.val) {
-                        // They did not win via this matrix.
-                        win = false;
-                        // Break out of the for loop and iterate though the next matrix
-                        break;
-                    }
-                }
-                // Check the status of win.
-                if (win) {
-                    // If win is true, return that the player won the game.
-                    return true;
+                // Check if player has each piece in a given matrix.
+                if (winMatrix[i].every( pos => board[pos] === value.val)) {
+                    return true; // If they do, return that they have won.
                 }
             }
             // If they get through all of the matrices without a win, return that they did not win.
