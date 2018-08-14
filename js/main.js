@@ -210,6 +210,21 @@ $( document ).ready( () => {
                 </div>`
             );
         }
+        // Create the hover handler event to be called if a player hovers over an empty space.
+        board.hover( e => {
+            console.log(e.target);
+            // Make sure the player is active.
+            if ($( '#player1' ).attr('class').includes('active')) {
+                const space = $(e.target);
+                // Make sure the space has not been taken.
+                if (space.attr('class') === 'box') {
+                    space.addClass('box-hover');
+                }
+            }
+        }, e => {
+            const space = $(e.target);
+            space.removeClass('box-hover');
+        });
         // Create the click handler event to be called if a player clicks on a piece.
         board.click( e => {
             // First make sure that the player is active.
