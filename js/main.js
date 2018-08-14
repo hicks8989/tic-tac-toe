@@ -212,7 +212,6 @@ $( document ).ready( () => {
         }
         // Create the hover handler event to be called if a player hovers over an empty space.
         board.hover( e => {
-            console.log(e.target);
             // Make sure the player is active.
             if ($( '#player1' ).attr('class').includes('active')) {
                 const space = $(e.target);
